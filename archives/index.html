@@ -116,8 +116,8 @@
     <div class="article-wrap">
         
             <h2 class="article-title cl">
-                <a href="/2022/01/06/博客简介/" title="firstpaper">
-                    firstpaper
+                <a href="/2022/01/06/mysql安装文档/" title="mysql安装文档">
+                    mysql安装文档
                 </a>
             </h2>
         
@@ -137,7 +137,24 @@
         </ul>
         <div class="article-description">
             
-            
+            <h2 id="宝塔安装："><a href="#宝塔安装：" class="headerlink" title="宝塔安装："></a>宝塔安装：</h2><h3 id="Centos安装命令："><a href="#Centos安装命令：" class="headerlink" title="Centos安装命令："></a>Centos安装命令：</h3><p>yum install -y wget &amp;&amp; wget -O install.sh <a target="_blank" rel="noopener" href="http://download.bt.cn/install/install_6.0.sh">http://download.bt.cn/install/install_6.0.sh</a> &amp;&amp; sh install.sh</p>
+<h2 id="阿里云防火墙开通端口："><a href="#阿里云防火墙开通端口：" class="headerlink" title="阿里云防火墙开通端口："></a>阿里云防火墙开通端口：</h2><p>查看当前已经开放的端口:<br>firewall-cmd –list-all<br>设置要开放的端口:<br>firewall-cmd –zone=public –add-port=端口/tcp –permanent<br>重新加载：<br>firewall-cmd –reload<br>相关链接：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36640713/article/details/106553833">https://blog.csdn.net/qq_36640713/article/details/106553833</a></p>
+<h2 id="Linux安装MySQL步骤："><a href="#Linux安装MySQL步骤：" class="headerlink" title="Linux安装MySQL步骤："></a>Linux安装MySQL步骤：</h2><h3 id="下载MySQL5-6"><a href="#下载MySQL5-6" class="headerlink" title="下载MySQL5.6"></a>下载MySQL5.6</h3><p>wget <a target="_blank" rel="noopener" href="https://dev.mysql.com/get/Downloads/MySQL-5.6/MySQL-5.6.45-1.el7.x86_64.rpm-bundle.tar">https://dev.mysql.com/get/Downloads/MySQL-5.6/MySQL-5.6.45-1.el7.x86_64.rpm-bundle.tar</a><br>wget <a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/get/p/23/file/MySQL-5.6.51-1.el7.x86_64.rpm-bundle.tar">https://downloads.mysql.com/archives/get/p/23/file/MySQL-5.6.51-1.el7.x86_64.rpm-bundle.tar</a><br>wget <a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/get/p/23/file/mysql-8.0.22-1.el8.x86_64.rpm-bundle.tar">https://downloads.mysql.com/archives/get/p/23/file/mysql-8.0.22-1.el8.x86_64.rpm-bundle.tar</a></p>
+<p>网址：<a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/community/">https://downloads.mysql.com/archives/community/</a><br>步骤：MySQL官网(<a target="_blank" rel="noopener" href="https://dev.mysql.com)-&gt;下载-&gt;社区服务器-&gt;档案-&gt;红帽企业版/">https://dev.mysql.com)-&gt;下载-&gt;社区服务器-&gt;档案-&gt;红帽企业版</a>(RPM Bundle)</p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><p>tar -xvf MySQL-5.6.45-1.el7.x86_64.rpm-bundle.tar</p>
+<h3 id="查看之前使用rpm安装过的mysql"><a href="#查看之前使用rpm安装过的mysql" class="headerlink" title="查看之前使用rpm安装过的mysql"></a>查看之前使用rpm安装过的mysql</h3><p>rpm -qa | grep -i mysql</p>
+<h3 id="删除之前使用安装包手动安装的mysql"><a href="#删除之前使用安装包手动安装的mysql" class="headerlink" title="删除之前使用安装包手动安装的mysql"></a>删除之前使用安装包手动安装的mysql</h3><p>使用whereis mysql查看mysq安装位置，将相关文件删除<br>使用locate mysql再次确认删除情况<br>输入 mysql -V确认mysql已经删除<br>(安装过程中，发现了残留的mysql配置文件, 删除)</p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>rpm -e<br>    MySQL-server<br>    MySQL-client<br>    MySQL-devel</p>
+<p>如果报依赖错误：<br>rmp -ev mysql-community-client-5.7.32-1.el7.x86_64 –nodeps<br>其中，mysql-community-client-5.7.32-1.el7.x86_64是rpm -qa找到的mysql包<br>Ctrl + R:查询历史记录</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>rpm -ivh MySQL-client-5.6.45-1.el7.x86_64.rpm –force –nodeps<br>rpm -ivh MySQL-devel-5.6.45-1.el7.x86_64.rpm –force –nodeps<br>rpm -ivh MySQL-server-5.6.45-1.el7.x86_64.rpm –force –nodeps</p>
+<h3 id="切换到-usr-bin目录，启动"><a href="#切换到-usr-bin目录，启动" class="headerlink" title="切换到/usr/bin目录，启动"></a>切换到/usr/bin目录，启动</h3><p>service mysqld start</p>
+<h3 id="停止mysql服务："><a href="#停止mysql服务：" class="headerlink" title="停止mysql服务："></a>停止mysql服务：</h3><p>service mysqld stop<br>service mysql restart</p>
+<h3 id="获得密码"><a href="#获得密码" class="headerlink" title="获得密码"></a>获得密码</h3><p>cd ~<br>ls -al<br>cat /root/.mysql_secret</p>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><p>mysql -uroot -p’上一步获得的密码’</p>
+<h3 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h3><p>SET PASSWORD FOR ‘root‘@’localhost’ = PASSWORD(‘root’);</p>
+<h3 id="登录控制"><a href="#登录控制" class="headerlink" title="登录控制"></a>登录控制</h3><p>mysql -uroot -p123456<br>mysql&gt;use mysql<br>mysql&gt;select user,host,password from user;<br>mysql&gt;delete from user where password=’’;<br>mysql&gt;update user set host=’%’ where host=’localhost’;(%为所有，自己设置ip)<br>mysql&gt; flush privileges</p>
+<h3 id="使用rpm安装mysql的默认目录："><a href="#使用rpm安装mysql的默认目录：" class="headerlink" title="使用rpm安装mysql的默认目录："></a>使用rpm安装mysql的默认目录：</h3><p>1、数据库目录<br>/var/lib/mysql/<br>2、配置文件<br>/usr/share/mysql(mysql.server命令及配置文件)    support-files=/etc/my.cnf<br>3、相关命令<br>/usr/bin(mysqladmin mysqldump等命令)<br>4、启动脚本<br>/etc/rc.d/init.d/(启动脚本文件mysql的目录)<br>systemctl restart mysqld.service<br>systemctl status mysqld </p>
+
         </div>
         
             
@@ -209,7 +226,7 @@
         
         <div class="widget-post widget" style="order: 1 ">
             <h2 class="widget-title"><i class="fa fa-file-text"></i> 近期文章</h2>
-            <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/01/06/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/">firstpaper</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/06/hello-world/">Hello World</a></li></ul>
+            <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/01/06/mysql%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/">mysql安装文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/06/hello-world/">Hello World</a></li></ul>
         </div>
         
 
